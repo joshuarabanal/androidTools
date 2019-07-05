@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name = "Theme.Leanback.Onboarding" parent = "android:Theme.DeviceDefault.Light">
+        	<item name = "android:windowActionBar">false</item>
+        	<item name = "android:windowNoTitle">true</item>
+			<item name="android:windowBackground">@drawable/fragment_onboarding_fragment_background</item>
+			<item name="android:animateLayoutChanges">true</item>
+		<item name="android:statusBarColor">#0b6075</item>
+		<item name="android:navigationBarColor">#0b6075</item>
+		<item name="android:textColor">@android:color/white</item>
+
+	</style>
+</resources>
