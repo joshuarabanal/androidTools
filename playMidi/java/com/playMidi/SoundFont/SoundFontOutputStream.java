@@ -4,16 +4,16 @@ import android.util.Log;
 
 import com.playMidi.AudioTools.wavFormat.PcmHelpers;
 import com.playMidi.SoundFont.RiffFormat.Writer;
-import com.playMidi.SoundFont.soundFontInputStream.MetaData;
-import com.playMidi.SoundFont.soundFontInputStream.SampleMetas;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.InstrumentGenModIndcies;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.InstrumentGenerator;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.InstrumentModulator;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.PresetHeader;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.PresetZoneGenerator;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.PresetZoneIndex;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.PresetZoneModulator;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.SampleHeaders;
+import com.playMidi.SoundFont.io.soundFontInputStream.SampleMetas;
+import com.playMidi.SoundFont.io.soundFontInputStream.MetaData;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.InstrumentGenModIndcies;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.InstrumentGenerator;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.InstrumentModulator;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.PresetHeader;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.PresetZoneGenerator;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.PresetZoneIndex;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.PresetZoneModulator;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.SampleHeaders;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -63,7 +63,7 @@ public class SoundFontOutputStream implements Runnable{
         }
 
         try {
-            SoundFontMidiTimbreSet sf = new SoundFontMidiTimbreSet(new FileInputStream(f));
+            SoundFontMidiTimbreSet sf = new SoundFontMidiTimbreSet(new FileInputStream(f), true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -123,6 +123,7 @@ public class SoundFontOutputStream implements Runnable{
         OutputStream out = new BufferedOutputStream(new FileOutputStream(f));
 
 
+        
         SampleMetas sm = sf.getSampleMetas();
 
         write_pdta_pdhr(out, sm.presets);
@@ -158,7 +159,7 @@ public class SoundFontOutputStream implements Runnable{
         Writer.writeRiffName(out, "igen",instruments.size()*4);
         for(int i = 0; i<instruments.size(); i++){
             InstrumentGenerator zone =instruments.get(i);
-            Writer.writeWord(out,zone.generatorOperatorToInt());
+            Writer.writeWord(out,zone.sfGenOper);
             out.write(zone.genAmount_byLO);
             out.write(zone.genAmount_byHI);//get_WORD(array, start);
         }

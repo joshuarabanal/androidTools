@@ -15,11 +15,11 @@ public class SampleHeaders {
     public static int SAMPLE_LIKE_TYPE_RomLinkedSample = 0x8008;
 
     public String hSampleName="unknown";
-    private int start = -1;
-    private int end = -1;
-    private int startLoop = -1;
-    private int endLoop = -1;
-    private int sampleRate = 0;
+    public int start = -1;
+    public int end = -1;
+    public int startLoop = -1;
+    public int endLoop = -1;
+    public int sampleRate = 0;
     public int originalPitch = -1;
     public int pitchCorrection = 0;
     public int sampleLink = -1;

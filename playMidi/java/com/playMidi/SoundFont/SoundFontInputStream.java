@@ -6,16 +6,16 @@ import android.util.Log;
 
 import com.playMidi.AudioTools.wavFormat.WaveOutputStream;
 import com.playMidi.SoundFont.RiffFormat.Reader;
-import com.playMidi.SoundFont.soundFontInputStream.SampleMetas;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.InstrumentGenModIndcies;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.InstrumentGenerator;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.InstrumentModulator;
-import com.playMidi.SoundFont.soundFontInputStream.MetaData;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.PresetHeader;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.PresetZoneIndex;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.SampleHeaders;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.PresetZoneGenerator;
-import com.playMidi.SoundFont.soundFontInputStream.metaData.PresetZoneModulator;
+import com.playMidi.SoundFont.io.soundFontInputStream.SampleMetas;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.InstrumentGenModIndcies;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.InstrumentGenerator;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.InstrumentModulator;
+import com.playMidi.SoundFont.io.soundFontInputStream.MetaData;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.PresetHeader;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.PresetZoneIndex;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.SampleHeaders;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.PresetZoneGenerator;
+import com.playMidi.SoundFont.io.soundFontInputStream.metaData.PresetZoneModulator;
 import com.playMidi.xml.BufferedInputStream;
 import com.playMidi.xml2.XmlMidiTimbreSet;
 
@@ -434,7 +434,7 @@ private static String generatorOperatorToString(BufferedInputStream in) throws I
         ArrayList<InstrumentGenerator> instruments = new ArrayList<InstrumentGenerator>();
         while (start < end) {
             InstrumentGenerator zone = new InstrumentGenerator();
-            zone.sfGenOper = generatorOperatorToString(in);
+            zone.sfGenOper = in.getWord();//generatorOperatorToString(in);
             start += 2;
             zone.genAmount_byLO = in.read();
             zone.genAmount_byHI = in.read();//get_WORD(array, start);
