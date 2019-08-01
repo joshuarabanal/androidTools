@@ -3,6 +3,7 @@ package com.playMidi.SoundFont.io;
 import android.util.Log;
 
 import Analytics.CrashReporter;
+import com.playMidi.AudioTools.wavFormat.PcmHelpers;
 import com.playMidi.SoundFont.io.RiffFormat.Writer;
 import com.playMidi.SoundFont.SoundFontMidiTimbreSet;
 import com.playMidi.SoundFont.io.soundFontInputStream.MetaData;
@@ -26,7 +27,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-import waveFormat.PcmHelpers;
 
 /**
  * Created by ra on 24/05/2017.

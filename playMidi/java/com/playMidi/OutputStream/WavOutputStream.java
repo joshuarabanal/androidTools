@@ -7,13 +7,13 @@ import com.musicxml.noteDataTypes.note.RegularNote;
 import com.musicxml.noteDataTypes.note.RestNote;
 import com.musicxml.noteDataTypes.note.regularNote.NoteLengths;
 import com.musicxml.views.NoteScript;
+import com.playMidi.AudioTools.wavFormat.WaveOutputStream;
 import com.playMidi.SoundFont.SoundFontMidiTimbreSet;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import waveFormat.WaveOutputStream;
 
 /**
  * Created by Joshua on 21/12/2017.

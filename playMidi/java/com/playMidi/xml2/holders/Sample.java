@@ -2,6 +2,7 @@ package com.playMidi.xml2.holders;
 
 import android.util.Log;
 
+import com.playMidi.AudioTools.wavFormat.PcmHelpers;
 import com.playMidi.SoundFont.io.RiffFormat.Writer;
 import com.playMidi.player.Midi.MidiHelperFunctions;
 import com.playMidi.xml.functions.Function;
@@ -11,9 +12,6 @@ import com.playMidi.xml2.XmlMidiTimbreSet;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
-
-import waveFormat.PcmHelpers;
 import xml.NameValuePairList;
 import xml.unoptimized.NameValuePair;
 import xml.XMLelement;

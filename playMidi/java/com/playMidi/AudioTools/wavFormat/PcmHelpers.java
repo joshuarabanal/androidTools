@@ -9,6 +9,15 @@ import java.io.OutputStream;
 
 public class PcmHelpers {
 
+	public static class Short{
+		public static void write( short[] buffer, OutputStream out) throws IOException {
+			writeShortBuffer(buffer, out);
+		}
+		public static int read(InputStream in, short[] buffer){
+			return read(in, buffer);
+		}
+	}
+
 	public static int frameValueLittleEndian(int firstByte, int secondByte){
 		int one = 1;
 		if(secondByte>127){//this is a negative frame value
@@ -25,19 +34,22 @@ public class PcmHelpers {
 		track.write(b, 0, 2);
 	}
 	private static byte[] byteBuffer;
-	public static void writeShortBuffer(short[] buffer, OutputStream fos)throws IOException {
+	public static void writeShortBuffer(OutputStream out, short[] buffer, int start, int length) throws IOException {
 		if(byteBuffer == null){ byteBuffer = new byte[1028];}
 		int byteBufferIndex = 0;
-		for(int i = 0; i<buffer.length; i++){
+		for(int i = 0; i<length; i++){
 			if(byteBufferIndex+1>=byteBuffer.length){
-				fos.write(byteBuffer,0, byteBufferIndex);
+				out.write(byteBuffer,0, byteBufferIndex);
 				byteBufferIndex = 0;
 			}
-			byteBuffer[byteBufferIndex++] = (byte)(buffer[i]&0xFF);
-			byteBuffer[byteBufferIndex++] =(byte)((buffer[i]>>8) & 0xff);
+			byteBuffer[byteBufferIndex++] = (byte)(buffer[i+start]&0xFF);
+			byteBuffer[byteBufferIndex++] =(byte)((buffer[i+start]>>8) & 0xff);
 
 		}
-		fos.write(byteBuffer,0,byteBufferIndex);
+		out.write(byteBuffer,0,byteBufferIndex);
+	}
+	public static void writeShortBuffer(short[] buffer, OutputStream fos)throws IOException {
+		writeShortBuffer(fos, buffer,0,buffer.length);
 	}
     public static int readunsignedLittleEndian(InputStream in, int length) throws IOException {
         int retu = 0;

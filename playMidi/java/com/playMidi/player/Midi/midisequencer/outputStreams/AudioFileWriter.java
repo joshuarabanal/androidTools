@@ -1,11 +1,11 @@
 package com.playMidi.player.Midi.midisequencer.outputStreams;
 
+import com.playMidi.AudioTools.wavFormat.WaveOutputStream;
 import com.playMidi.player.Midi.midisequencer.OnCompletionListener;
 
 import java.io.File;
 import java.io.IOException;
 
-import waveFormat.WaveOutputStream;
 
 /**
  * Created by Joshua on 19/01/2018.

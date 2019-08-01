@@ -1,10 +1,10 @@
 package com.playMidi.SoundFont.io.RiffFormat;
 
 
+import com.playMidi.AudioTools.wavFormat.PcmHelpers;
+
 import java.io.IOException;
 import java.io.OutputStream;
-
-import waveFormat.PcmHelpers;
 
 /**
  * Created by ra on 24/05/2017.

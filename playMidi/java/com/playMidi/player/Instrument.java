@@ -1,12 +1,12 @@
 package com.playMidi.player;
 
+import com.playMidi.AudioTools.wavFormat.PcmHelpers;
 import com.playMidi.player.Midi.MidiHelperFunctions;
 import com.playMidi.player.soundEvent.MidiTimbreSet;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import waveFormat.PcmHelpers;
 
 /**
  * Created by ra on 3/7/2017.
@@ -58,7 +58,7 @@ public class Instrument {
      *
      * @param out destination output
      * @param noteNumber midi sound number
-     * @param volume number from 0:{@link Short#MAX_VALUE Short.MAX_VALUE}
+     * @param volume number from 0 to Short.MAX_VALUE
      * @throws IOException
      */
     public void SaveToFile(OutputStream out, int noteNumber, int volume)  throws IOException{
@@ -67,7 +67,7 @@ public class Instrument {
         while(seconds>44100*3){
             for(int i = 0; i<buffer.length; i++){ buffer[i] = 0; }
             fillBuffer( noteNumber, seconds,buffer.length, volume, buffer);
-            PcmHelpers.Short.write(buffer, out);
+            PcmHelpers.writeShortBuffer(buffer, out);
             seconds+=buffer.length;
         }
 

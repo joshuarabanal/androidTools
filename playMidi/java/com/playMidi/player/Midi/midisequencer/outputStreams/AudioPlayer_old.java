@@ -9,7 +9,9 @@ import androidx.annotation.Nullable;
 import android.util.Log;
 
 import Analytics.CrashReporter;
+import com.playMidi.AudioTools.wavFormat.PcmHelpers;
 import com.playMidi.player.Midi.midisequencer.OnCompletionListener;
+import com.playMidi.xml.BufferedInputStream;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,8 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import waveFormat.BufferedInputStream;
-import waveFormat.PcmHelpers;
 
 public class AudioPlayer_old implements AudioOutputStream , Runnable {
     private int sampleRate;
@@ -69,7 +69,8 @@ public class AudioPlayer_old implements AudioOutputStream , Runnable {
             if(writingFile.exists()){ writingFile.delete(); }
             out = /*new ShortOutputStream(*/new FileOutputStream(writingFile);
         }
-        /*.write(buffer, 0, length);*/PcmHelpers.Short.write(out, buffer,0,length);
+        /*.write(buffer, 0, length);*/
+        PcmHelpers.writeShortBuffer(out, buffer,0,length);
 
         writingIndex+=length;
         if(writingIndex>100 && thread == null){
