@@ -14,7 +14,6 @@ import com.playMidi.player.soundEvent.MidiTimbreSet;
 
 import java.util.ArrayList;
 
-import static com.musicxml.noteDataTypes.note.DynamicNote.value_dynamic_fortississimo;
 
 public class TrackCrawler {
     private DrawingDataBox ddb;
@@ -145,21 +144,21 @@ public class TrackCrawler {
         setNoteValues(event,n, (n.getLength()*3)+borrowedLength);
     }
     private void setNoteValues(NoteEvent event, Note n, int overridingLength){
-        switch(n.getType()){
-            case RegularNote.TYPE:
+        int type = n.getType();
+            if( type == RegularNote.TYPE){
                 RegularNote note = (RegularNote)n;
                 event.set(note.name,note.octave,overridingLength, note.articulation);
                 event.addChords(note);
                 borrowedLength = 0;
                 notes.add(event);
                 return;
-            case GraceNote.TYPE:
+            }else if( type == GraceNote.Companion.getTYPE()){
                 borrowedLength = -3;
                 GraceNote grace = (GraceNote)n;
                 event.set(grace.name,grace.octave,3,grace.articulation);
                 notes.add(event);
                 return;
-            case RestNote.TYPE:
+            }else if( type == RestNote.TYPE){
                 event.mididNumber = -1;
                 event.time = 0;
                 event.articulation = RegularNote.Articulation_null;
@@ -167,7 +166,7 @@ public class TrackCrawler {
                 borrowedLength = 0;
                 notes.add(event);
                 return;
-            case TripletNote.TYPE:
+            }else if( type == TripletNote.TYPE){
                 TripletNote tn= (TripletNote)n;
                 n = tn.notes[tripletItoration];
                 tripletItoration++;
@@ -176,17 +175,15 @@ public class TrackCrawler {
                 int thisLength = ((n.getLength()*2));
                 setNoteValues(event,n,thisLength);
                 return;
-            case DynamicNote.TYPE:
-                volume = ((DynamicNote)n).volume/((float)value_dynamic_fortississimo);
-                break;
-            case OctavaNote.TYPE_OPEN:
+            }else if( type == DynamicNote.Companion.getTYPE()){
+                volume = ((DynamicNote) n).getVolume() /((float) DynamicNote.Companion.getValue_dynamic_fortississimo());
+
+            }else if( type == OctavaNote.Companion.getTYPE_OPEN()){
                 OctavaNote on = (OctavaNote)n;
-                octaveAdjust = on.up? 1:-1;
-                break;
-            case OctavaNote.TYPE_CLOSE:
+                octaveAdjust = on.getUp() ? 1:-1;
+            }else if( type == OctavaNote.Companion.getTYPE_CLOSE()){
                 octaveAdjust = 0;
-                break;
-        }
+            }
 
         setNoteValues(event);
     }
